@@ -1,0 +1,77 @@
+#headline {
+    font-family: sans-serif; font-size: 30px;
+}
+
+body {
+    width: 1080px;
+    margin: 0 auto;
+}
+
+.cartegory {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#moviedata > div > p {
+    border-style: solid;
+    border-width: 1px;
+}
+
+#redirect {
+    width: 200px;
+    position: relative;
+    left: 230px;
+}
+
+.current {
+    color: black;
+}
+
+form {
+    width: 400px;
+    height: auto;
+    border-style: solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    padding-right: 0px;
+    position: relative;
+    left: 50px;
+}
+
+form > p {
+    font-size: 20px;
+}
+
+input , select {
+    text-align: end;
+    position: absolute;
+    right: 50px;
+    width: 190px;
+}
+
+#gender {
+    position: relative;
+    right: auto;
+    width: auto;
+}
+
+#signup , #login , #cancel {
+    position: relative;
+    right: auto;
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    border-style: none;
+    border-radius: 10%;
+    text-align: center;
+}
+
+#signup , #login {
+    background-color: greenyellow;
+}
+
+#cancel {
+    background-color: red;
+    color: white;
+}
