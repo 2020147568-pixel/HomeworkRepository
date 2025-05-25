@@ -1,0 +1,178 @@
+#headline {
+    font-family: sans-serif; font-size: 30px;
+}
+
+body {
+    width: 1020px;
+    margin: 0 auto;
+}
+
+.cartegory {
+    font-size: 2em;
+    font-weight: bold;
+    border: none;
+    border-bottom: 2px solid;
+}
+
+#redirect {
+    width: auto;
+    position: relative;
+    left: 190px;
+}
+
+.current {
+    color: black;
+}
+
+form {
+    width: 400px;
+    height: auto;
+    border-style: solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    padding-right: 0px;
+    position: relative;
+    left: 50px;
+}
+
+form > p {
+    font-size: 20px;
+}
+
+form > p > input , select {
+    text-align: end;
+    position: absolute;
+    right: 50px;
+    width: 190px;
+}
+
+#searchInput {
+    text-align: left;
+    position: relative;
+    right: auto;
+    width: 800px;
+}
+
+#gender {
+    position: relative;
+    right: auto;
+    width: auto;
+}
+
+#signup , #login , #cancel {
+    position: relative;
+    right: auto;
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    border-style: none;
+    border-radius: 10%;
+    text-align: center;
+}
+
+#signup , #login {
+    background-color: greenyellow;
+}
+
+#cancel {
+    background-color: red;
+    color: white;
+}
+
+#sorttitle {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.sort-options {
+  width: 200px;
+  display: flex;
+  flex-direction: column; /* 가로 → 세로로 변경 */
+  align-items: flex-start; /* 왼쪽 정렬 (필요시 center로 변경 가능) */
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  border: 1px solid;
+}
+
+#movieList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 0 20px 40px 20px;
+  max-width: 1020px;
+  margin: 0 auto 40px auto;
+  text-align: center;
+}
+
+.movie-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border-bottom: 1px solid #ccc;
+}
+
+.movie-card:hover {
+  transform: scale(1.03);
+}
+
+.poster-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+
+.movie-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 220px;
+  background-color: rgba(0,0,0,0.8);
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  font-size: 13px;
+  line-height: 1.3;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+}
+
+.poster-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.movie-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0 0 6px 0;
+  color: #222;
+}
+
+.movie-rating,
+.movie-release {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}

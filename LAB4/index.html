@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="main.css">
+        <title>Internet Programming Movie Site</title>
+    </head>
+<body>
+  <h1 id="headline">인프밍 영화정보 사이트입니다.</h1>
+
+  <p id="nevi">
+    <a href="index.html" class="current">메인페이지</a>
+    <a href="login.html">로그인</a>
+    <a href="signup.html">회원가입</a>
+  </p>
+
+  <div id="searchBox">
+    <input type="text" id="searchInput" placeholder="영화 제목을 입력하세요..." />
+    <button id="searchButton">검색하기</button>
+  </div>
+
+  <div id="contentWrapper">
+    <aside id="filterSection" class="sort-options">
+      <label><input type="radio" name="sort" value="rating-asc" /> 평점 오름차순</label>
+      <label><input type="radio" name="sort" value="rating-desc" /> 평점 내림차순</label>
+      <label><input type="radio" name="sort" value="release-asc" /> 개봉일 오름차순</label>
+      <label><input type="radio" name="sort" value="release-desc" /> 개봉일 내림차순</label>
+    </aside>
+
+    <main>
+      <div id="movieList"></div>
+    </main>
+  </div>
+
+  <script>
+    const movieList = document.getElementById('movieList');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchButton');
+    const sortRadios = document.querySelectorAll('input[name="sort"]');
+
+    let movies = [];
+    let filtered = [];
+    let page = 0;
+    const pageSize = 2;
+
+    async function loadMovies() {
+      try {
+        const res = await fetch('product.json');
+        if (!res.ok) throw new Error('데이터 로딩 실패');
+        movies = await res.json();
+        filtered = [...movies];
+        page = 0;
+        renderMovies(true);
+      } catch (error) {
+        console.error('fetch error:', error);
+      }
+    }
+
+    function renderMovies(reset = false) {
+      if (reset) {
+        movieList.innerHTML = '';
+        page = 0;
+      }
+
+      const start = page * pageSize;
+      const end = start + pageSize;
+      const moviesToShow = filtered.slice(start, end);
+
+      moviesToShow.forEach(movie => {
+        const card = document.createElement('div');
+        card.className = 'movie-card';
+
+        card.innerHTML = `
+          <div class="poster-container">
+            <img src="${movie.poster}" alt="${movie.title}" class="movie-poster" />
+            <div class="tooltip">${movie.description}</div>
+          </div>
+          <h3 class="movie-title">${movie.title}</h3>
+          <p class="movie-rating">평점: ${movie.rating}</p>
+          <p class="movie-release">개봉일: ${movie.release_date}</p>
+        `;
+
+        movieList.appendChild(card);
+      });
+
+      page++;
+    }
+
+    function applyFilterAndSort() {
+      const keyword = searchInput.value.trim().toLowerCase();
+
+      filtered = movies.filter(movie =>
+        movie.title.toLowerCase().includes(keyword)
+      );
+
+      const selectedSort = document.querySelector('input[name="sort"]:checked')?.value;
+
+      if (selectedSort) {
+        switch (selectedSort) {
+          case 'rating-asc':
+            filtered.sort((a, b) => a.rating - b.rating);
+            break;
+          case 'rating-desc':
+            filtered.sort((a, b) => b.rating - a.rating);
+            break;
+          case 'release-asc':
+            filtered.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
+            break;
+          case 'release-desc':
+            filtered.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+            break;
+        }
+      }
+
+      renderMovies(true);
+    }
+
+    searchBtn.addEventListener('click', () => {
+      applyFilterAndSort();
+    });
+
+    sortRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        applyFilterAndSort();
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 100
+      ) {
+        if (page * pageSize < filtered.length) {
+          renderMovies();
+        }
+      }
+    });
+
+    loadMovies();
+  </script>
+</body>
+</html>
